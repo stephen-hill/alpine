@@ -15,7 +15,20 @@ directive('if', (el, { expression }, { effect, cleanup }) => {
     let show = () => {
         if (el._x_currentIfEl) return el._x_currentIfEl
 
-        let clone = el.content.cloneNode(true).firstElementChild
+        const parent = el.content.cloneNode(true);
+        const children = parent.children;
+
+        if (children.length === 0)
+        {
+            warn('x-if has no child', el);
+        }
+
+        if (children.length > 1)
+        {
+            warn('x-if cannot have multiple children', el);
+        }
+
+        let clone = children.item(0);
 
         addScopeToNode(clone, {}, el)
 
