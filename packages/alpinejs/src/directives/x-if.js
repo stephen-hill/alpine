@@ -18,14 +18,10 @@ directive('if', (el, { expression }, { effect, cleanup }) => {
         const parent = el.content.cloneNode(true);
         const children = parent.children;
 
-        if (children.length === 0)
-        {
-            warn('x-if has no child', el);
-        }
-
-        if (children.length > 1)
-        {
-            warn('x-if cannot have multiple children', el);
+        if (children.length === 0) {
+            warn('x-if is missing a child node', el);
+        } else if (children.length > 1) {
+            warn('x-if can only have one child node', el);
         }
 
         let clone = children.item(0);
